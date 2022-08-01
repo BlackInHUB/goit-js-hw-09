@@ -16,3 +16,12 @@ img {
   display: block;
   max-width: 100%;
 }
+
+button {
+  padding: 10px 20px;
+}
+
+.container {
+  height: 100%;
+  text-align: center;
+}
