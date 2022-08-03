@@ -16,6 +16,7 @@ function onSubmitBtnClick(evt) {
     position += 1;
     delay += Number(stepInput.value);
   }
+  evt.currentTarget.reset();
 }
 
 function createPromise(position, delay) {
