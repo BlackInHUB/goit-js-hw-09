@@ -12,7 +12,13 @@ function onSubmitBtnClick(evt) {
   let delay = Number(delayInput.value);
 
   for (let i = 0; i < amountInput.value; i += 1) {
-    createPromise(position, delay);
+    createPromise(position, delay)
+      .then(({ position, delay }) => {
+        Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+      })
+      .catch(({ position, delay }) =>
+        Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`)
+      );
     position += 1;
     delay += Number(stepInput.value);
   }
@@ -22,12 +28,12 @@ function onSubmitBtnClick(evt) {
 function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
 
-  return new Promise(() => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (shouldResolve) {
-        Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+        resolve({ position, delay });
       } else {
-        Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+        reject({ position, delay });
       }
     }, delay);
   });
